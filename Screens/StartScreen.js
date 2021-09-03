@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, TextInput, StyleSheet, Button} from 'react-native'
+import {View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
 
 const StartScreen = () => {
     return (
@@ -25,9 +25,9 @@ const StartScreen = () => {
 
                 </View>
             </View>
-            <Button style ={styles.startGameButton} title = 'Start Game'>
-
-            </Button>
+            <TouchableOpacity style = {styles.startGameButton}>
+                <Text style = {styles.buttonText}>Start Game</Text>
+            </TouchableOpacity>
         </View>
         
     )
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     headingContainer: {
         alignItems: 'center',
         height: '20%',
-        paddingTop: 33
+        paddingTop: 33,
     },
     heading: {
         fontFamily: 'inter',
@@ -65,6 +65,19 @@ const styles = StyleSheet.create({
         height: 30,
         fontSize: 12,
         paddingTop: 5,
+    },
+    startGameButton: {
+        backgroundColor: 'white',
+        height: 35,
+        marginHorizontal: 10,
+        borderRadius: 15,
+        alignItems: 'center'
+    },
+    buttonText: {
+        color: '#2ECC71',
+        marginTop: 5,
+        fontWeight: 'bold',
+        fontSize: 16
     }
 })
 export default StartScreen
