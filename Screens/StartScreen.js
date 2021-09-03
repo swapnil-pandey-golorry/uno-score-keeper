@@ -7,6 +7,8 @@ const StartScreen = () => {
     const state = useContext(Context)
     const playerData = state.playerData
     const changePlayerData = state.changePlayerData
+    const changeNumber = state.changeNumber
+    const numberOfPlayers = state.numberOfPlayers
 
 
     const renderPlayerInput = itemData => {
@@ -45,9 +47,41 @@ const StartScreen = () => {
 
                     <Text style = {styles.text}>Number of players</Text>
                     <TextInput
-                        style={styles.input}
+                            style={styles.input}
+                            defaultValue = '2'
                         keyboardType='number-pad'
-                        maxLength = {1}
+                            maxLength={1}
+                            onChangeText={input => {
+                                const num = parseInt(input)
+                                if (input.length == 0) return
+                                if(input === '1') return
+                                if (num > numberOfPlayers)
+                                {
+                                    console.log(toString(playerData.length))
+                                    while (num > playerData.length)
+                                    {
+                                        console.log(playerData.length)
+                                        var playerName = 'Player ' + (playerData.length+1)
+                                        playerData.push({
+                                            'name': playerName,
+                                            'score': 0
+                                        })
+                                        
+                                    }
+                                    changeNumber(num)
+                                    changePlayerData(playerData)
+                                }
+                                else if (num < playerData.length)
+                                {
+                                    while (playerData.length>num)
+                                    {
+                                        playerData.pop()
+                                    }
+                                    
+                                }
+                                changeNumber(num)
+                                changePlayerData(playerData)
+                            }}
                     >
 
                     </TextInput>
@@ -58,7 +92,8 @@ const StartScreen = () => {
                     <TextInput
                         style={styles.input}
                         keyboardType='number-pad'
-                        maxLength = {2}
+                            maxLength={3}
+                            defaultValue = '100'
                     >
                         
                     </TextInput>
@@ -112,7 +147,7 @@ const styles = StyleSheet.create({
     input: {
         borderBottomColor: 'white',
         borderBottomWidth: .4,
-        width: '20%',
+        width: '40%',
         height: 30,
         fontSize: 12,
         paddingTop: 5,
@@ -153,6 +188,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginHorizontal : 20
-    }
+    },
 })
 export default StartScreen
