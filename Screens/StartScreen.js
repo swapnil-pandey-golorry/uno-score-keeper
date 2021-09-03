@@ -1,7 +1,12 @@
-import React from 'react'
-import {View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
-
+import { ContentWriter } from 'istanbul-lib-report'
+import React, {useContext} from 'react'
+import {View, Text, TextInput, StyleSheet, TouchableOpacity, FlatList} from 'react-native'
+import { Context } from '../App'
 const StartScreen = () => {
+
+    const state = useContext(Context)
+    const playerData = state.playerData
+    console.log(playerData)
     return (
         <View style = {styles.screen}>
             <View style = {styles.headingContainer}>
@@ -10,21 +15,31 @@ const StartScreen = () => {
             <View style={styles.detailsContainer}>
                 <View style={styles.settingsContainer}>
                     <Text style = {styles.text}>Number of players</Text>
-                    <TextInput style = {styles.input}>
+                    <TextInput
+                        style={styles.input}
+                        keyboardType='number-pad'
+                        maxLength = {1}
+                    >
 
                     </TextInput>
                     <Text style = {styles.text}>Points to win</Text>
-                    <TextInput style = {styles.input}>
+                    <TextInput
+                        style={styles.input}
+                        keyboardType='number-pad'
+                        maxLength = {2}
+                    >
                         
                     </TextInput>
                 </View>
                 <View style = {styles.nameContainer}>
-
                 </View>
                 <View style = {styles.optionsContainer}>
 
                 </View>
             </View>
+            <FlatList>
+
+            </FlatList>
             <TouchableOpacity style = {styles.startGameButton}>
                 <Text style = {styles.buttonText}>Start Game</Text>
             </TouchableOpacity>
@@ -37,7 +52,7 @@ const StartScreen = () => {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor : '#2ECC71'
+        backgroundColor : '#19193C'
     },
     headingContainer: {
         alignItems: 'center',
@@ -65,6 +80,7 @@ const styles = StyleSheet.create({
         height: 30,
         fontSize: 12,
         paddingTop: 5,
+        color:  'white'
     },
     startGameButton: {
         backgroundColor: 'white',
