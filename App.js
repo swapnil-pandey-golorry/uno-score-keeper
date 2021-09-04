@@ -8,11 +8,11 @@
 
 import React ,{useState, createContext} from 'react';
 import StartScreen from './Screens/StartScreen';
-
+import GameScreen from './Screens/GameScreen';
 export const Context = createContext()
 
 const App = () => {
-  const [numberOfPlayers, setNumberOfPlayers] = useState(2)
+  const [numberOfPlayers, setNumberOfPlayers] = useState(4)
   const [playerData, setPlayerData] = useState([
     {
       'name': 'Player 1',
@@ -21,7 +21,15 @@ const App = () => {
     {
       'name': 'Player 2',
       'score': 0
-    }
+    },
+    {
+      'name': 'Player 3',
+      'score': 0
+    },
+    {
+      'name': 'Player 4',
+      'score': 0
+    },
   ])
   const [winPoints, setWinPoints] = useState(100)
   const changeNumber = val => { setNumberOfPlayers(val) }
@@ -38,7 +46,7 @@ const App = () => {
         changeWinPOints : changePlayerData
       }
     }>
-      <StartScreen></StartScreen>
+      <GameScreen></GameScreen>
     </Context.Provider>
     
   )
