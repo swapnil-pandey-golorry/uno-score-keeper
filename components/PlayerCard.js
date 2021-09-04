@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext,useState} from 'react';
 import {
   View,
   Text,
@@ -6,8 +6,18 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+    TextInput,
+    UIManager,
+  LayoutAnimation
 } from 'react-native';
-import {Context} from '../App';
+import { Context } from '../App';
+
+if (
+    Platform.OS === "android" &&
+    UIManager.setLayoutAnimationEnabledExperimental
+  ) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
 const PlayerCard = props => {
   const state = useContext(Context);
   const playerData = state.playerData;
@@ -18,35 +28,56 @@ const PlayerCard = props => {
       if (currPlayerState[index].name === props.name) {
         console.log(val);
         currPlayerState[index].score =
-          val + parseInt(currPlayerState[index].score);
+            val + parseInt(currPlayerState[index].score);
+          currPlayerState.sort((a, b) => (a.score > b.score) ? -1 : ((b.score > a.score) ? 1 : 0))
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         changePlayerData(currPlayerState);
         console.log(currPlayerState);
       }
     });
   };
-  return (
+  const [customIncrement, setCustomIncrement] = useState(0)
+    return (
+      
     <View style={styles.card}>
       <View style={styles.detailsContainer}>
-        <Text>{props.name}</Text>
-        <Text>{props.score}</Text>
+        <Text style = {styles.nameText}>{props.name}</Text>
+        <Text style = {styles.scoreText}>{props.score}</Text>
       </View>
-          <View style={styles.buttonsContainer}>
-              <View style = {styles.incrementButtonsContainer}>
-              <TouchableOpacity
-          style={styles.button}
-          onPress={incrementScore.bind(this, 1)}>
-          <View style = {styles.textContainer}><Text style = {styles.buttonText}>+1</Text></View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={incrementScore.bind(this, 10)}>
-          <Text style = {styles.buttonText}>+10</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={incrementScore.bind(this, 50)}>
-          <Text style = {styles.buttonText}>+50</Text>
-        </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <View style={styles.incrementButtonsContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={incrementScore.bind(this, 1)}>
+            <View style={styles.textContainer}>
+              <Text style={styles.buttonText}>+1</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={incrementScore.bind(this, 10)}>
+            <Text style={styles.buttonText}>+10</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={incrementScore.bind(this, 50)}>
+            <Text style={styles.buttonText}>+50</Text>
+          </TouchableOpacity>
+              </View>
+              <View style = {styles.customIncrementContainer}>
+                    <TextInput
+                      style={styles.input}
+                      keyboardType='number-pad'
+                      onChangeText={input => {
+                          setCustomIncrement(parseInt(input))
+                      }}
+                  ></TextInput>
+                    <TouchableOpacity
+                        onPress={incrementScore.bind(this,customIncrement)}
+                      style = {styles.customIncrementButton}
+                  >
+                      <Text style = {styles.customButtonText}>+</Text>
+                  </TouchableOpacity>
               </View>
       </View>
     </View>
@@ -60,37 +91,70 @@ styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 10,
     marginVertical: 12,
-        height: 110,
-    borderRadius : 15
+    height: 110,
+    borderRadius: 15,
   },
-    buttonsContainer: {
-        flex : 3,
-    },
-    incrementButtonsContainer: {
-    
+  buttonsContainer: {
+      flex: 3,
+    //   backgroundColor : 'blue'
+  },
+  incrementButtonsContainer: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     paddingTop: 10,
-    },
-    detailsContainer: {
-      flex : 1,
+      marginRight: 10,
+    height: '60%'
+  },
+  detailsContainer: {
+    flex: 1,
     paddingHorizontal: 30,
     paddingVertical: 30,
+    alignItems : 'center'
   },
   button: {
-      borderRadius: 10,
-      backgroundColor: '#19193C',
-      marginBottom: 60,
-      marginHorizontal: 5,
-      width: 40,
-      paddingTop: 10,
-      alignItems : 'center'
+    borderRadius: 10,
+    backgroundColor: '#19193C',
+    marginBottom: 10,
+    marginHorizontal: 5,
+    width: 40,
+    paddingTop: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    paddingBottom: 10,
+  },
+    nameText: {
+    fontSize : 14
     },
-    buttonText: {
-        color: 'white',
-        paddingBottom : 5
+    scoreText: {
+        fontSize: 25,
+        fontWeight : '700'
     },
-    textContainer: {
+    customIncrementContainer: {
+        // backgroundColor: 'green',
+        height: 60,
+        paddingBottom: 20,
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginLeft : 40
+    },
+    input: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 0.5,
+        width : 30
+    },
+    customIncrementButton: {
+        backgroundColor: '#19193C',
+        width: 30,
+        height: 30,
+        marginLeft: 20,
+        padding: 5,
+        alignItems: 'center',
+        borderRadius : 15
+    },
+    customButtonText: {
+        color : 'white'
     }
 });
 
