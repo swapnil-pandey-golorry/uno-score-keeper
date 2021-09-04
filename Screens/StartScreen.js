@@ -9,7 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import {Context} from '../App';
-const StartScreen = () => {
+const StartScreen = ({navigation}) => {
   const state = useContext(Context);
   const playerData = state.playerData;
   const changePlayerData = state.changePlayerData;
@@ -99,7 +99,10 @@ const StartScreen = () => {
         <View style={styles.optionsContainer} />
       </View>
       <FlatList data={playerData} renderItem={renderPlayerInput} />
-      <TouchableOpacity style={styles.startGameButton}>
+          <TouchableOpacity
+              style={styles.startGameButton}
+              onPress = {() => navigation.navigate('Game Screen')}
+          >
         <Text style={styles.buttonText}>Start Game</Text>
       </TouchableOpacity>
     </View>

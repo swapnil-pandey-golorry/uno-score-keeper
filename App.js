@@ -10,7 +10,10 @@ import React, {useState, createContext} from 'react';
 import StartScreen from './Screens/StartScreen';
 import GameScreen from './Screens/GameScreen';
 export const Context = createContext();
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+const Stack = createNativeStackNavigator()
 const App = () => {
   const [numberOfPlayers, setNumberOfPlayers] = useState(4);
   const [playerData, setPlayerData] = useState([
@@ -21,15 +24,7 @@ const App = () => {
     {
       name: 'Player 2',
       score: 0,
-    },
-    {
-      name: 'Player 3',
-      score: 0,
-    },
-    {
-      name: 'Player 4',
-      score: 0,
-    },
+    }
   ]);
   const [winPoints, setWinPoints] = useState(100);
   const changeNumber = val => {
@@ -51,7 +46,24 @@ const App = () => {
         changePlayerData: changePlayerData,
         changeWinPOints: changePlayerData,
       }}>
-      <GameScreen />
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen
+            name= 'Start Screen'
+            component = {StartScreen}
+          >
+          </Stack.Screen>
+          <Stack.Screen
+            name='Game Screen'
+            component = {GameScreen}
+          >
+          </Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
     </Context.Provider>
   );
 };

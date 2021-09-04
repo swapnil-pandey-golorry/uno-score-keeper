@@ -92,7 +92,8 @@ styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 12,
     height: 110,
-    borderRadius: 15,
+        borderRadius: 15,
+    elevation :2
   },
   buttonsContainer: {
       flex: 3,
@@ -118,7 +119,8 @@ styles = StyleSheet.create({
     marginHorizontal: 5,
     width: 40,
     paddingTop: 10,
-    alignItems: 'center',
+      alignItems: 'center',
+    elevation : 3
   },
   buttonText: {
     color: 'white',
@@ -151,7 +153,8 @@ styles = StyleSheet.create({
         marginLeft: 20,
         padding: 5,
         alignItems: 'center',
-        borderRadius : 15
+        borderRadius: 15,
+        elevation : 3
     },
     customButtonText: {
         color : 'white'
