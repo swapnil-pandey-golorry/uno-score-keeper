@@ -17,7 +17,6 @@ const StartScreen = ({ navigation }) => {
   const { changeNumber } = state;
   const { numberOfPlayers } = state;
   const { changeWinPoints } = state;
-  const { winPoints } = state;
 
   const renderPlayerInput = (itemData) => {
     const playerIndex = itemData.index;
@@ -46,10 +45,10 @@ const StartScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.screen}>
-      <View style={styles.headingContainer}>
+      
+        <View style={styles.headingContainer}>
         <Text style={styles.heading}>Uno Score Keeper</Text>
       </View>
-      <View style={styles.detailsContainer}>
         <View style={styles.settingsContainer}>
           <View>
             <Text style={styles.text}>Number of players</Text>
@@ -99,10 +98,8 @@ const StartScreen = ({ navigation }) => {
             />
           </View>
         </View>
-        <View style={styles.nameContainer} />
-        <View style={styles.optionsContainer} />
-      </View>
-      <FlatList data={playerData} renderItem={renderPlayerInput} />
+          <FlatList
+      style = {styles.list}        data={playerData} renderItem={renderPlayerInput} />
       <TouchableOpacity
         style={styles.startGameButton}
         onPress={() => navigation.navigate('Game Screen')}
@@ -131,6 +128,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
     detailsContainer: {
+        flex : 1,
         marginBottom: 10,
   },
   text: {
@@ -173,14 +171,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   playerCard: {
-    marginTop: 15,
+    marginTop: 5,
     marginBottom: 15,
   },
   settingsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 20,
-  },
+      marginHorizontal: 20,
+    marginBottom : 12
+    },
 });
 export default StartScreen;

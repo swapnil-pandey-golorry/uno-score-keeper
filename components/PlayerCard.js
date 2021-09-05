@@ -98,8 +98,8 @@ styles = StyleSheet.create({
     marginVertical: 12,
     height: 110,
     borderRadius: 15,
-        elevation: 2,
-    padding : 4
+    elevation: 2,
+    paddingTop : 55
   },
   buttonsContainer: {
     flex: 3,
