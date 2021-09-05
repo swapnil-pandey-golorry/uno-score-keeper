@@ -28,7 +28,7 @@ const PlayerCard = (props) => {
     currPlayerState.forEach((part, index, currPlayerState) => {
       if (currPlayerState[index].name === props.name) {
         currPlayerState[index].score = val + parseInt(currPlayerState[index].score);
-        if (playerData[0].score > winPoints) {
+        if (playerData[0].score >= winPoints) {
           props.navigation.navigate('End Screen');
           return;
         }
