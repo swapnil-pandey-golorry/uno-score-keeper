@@ -23,7 +23,7 @@ const GameScreen = ({ navigation }) => {
 
   const state = useContext(Context);
   const { playerData } = state;
-  console.log('here', playerData);
+
   const { changePlayerData } = state;
   const { winPoints } = state;
   return (
