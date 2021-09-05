@@ -1,5 +1,5 @@
-import {ContentWriter} from 'istanbul-lib-report';
-import React, {useContext} from 'react';
+import { ContentWriter } from 'istanbul-lib-report';
+import React, { useContext } from 'react';
 import {
   View,
   Text,
@@ -8,34 +8,37 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import {Context} from '../App';
-const StartScreen = ({navigation}) => {
-  const state = useContext(Context);
-  const playerData = state.playerData;
-  const changePlayerData = state.changePlayerData;
-  const changeNumber = state.changeNumber;
-  const numberOfPlayers = state.numberOfPlayers;
+import { Context } from '../App';
 
-  const renderPlayerInput = itemData => {
+const StartScreen = ({ navigation }) => {
+  const state = useContext(Context);
+  const { playerData } = state;
+  const { changePlayerData } = state;
+  const { changeNumber } = state;
+  const { numberOfPlayers } = state;
+  const { changeWinPoints } = state;
+  const { winPoints } = state;
+
+  const renderPlayerInput = (itemData) => {
     const playerIndex = itemData.index;
     const playerName = itemData.item.name;
     return (
       <View style={styles.playerCard}>
-        <Text style={styles.playerText}>Player {playerIndex + 1} name:</Text>
+        <Text style={styles.playerText}>
+          Player {playerIndex + 1}
+          {' '}
+          name:
+        </Text>
         <TextInput
           style={styles.playerInput}
-          defaultValue={itemData.item.name}
-          onChangeText={input => {
-            console.log('fired');
-
-            playerData.forEach(function (part, index, theArray) {
+          defaultValue={playerName}
+          onChangeText={(input) => {
+            playerData.forEach((part, index, theArray) => {
               if (playerIndex === index) {
-                theArray[index].name = input;
+                playerData[index].name = input;
               }
-              changePlayerData(theArray);
+              changePlayerData(playerData);
             });
-            console.log(playerName);
-            console.log(playerData);
           }}
         />
       </View>
@@ -55,7 +58,7 @@ const StartScreen = ({navigation}) => {
               defaultValue="2"
               keyboardType="number-pad"
               maxLength={1}
-              onChangeText={input => {
+              onChangeText={(input) => {
                 const num = parseInt(input);
                 if (input.length == 0) {
                   return;
@@ -64,10 +67,8 @@ const StartScreen = ({navigation}) => {
                   return;
                 }
                 if (num > numberOfPlayers) {
-                  console.log(toString(playerData.length));
                   while (num > playerData.length) {
-                    console.log(playerData.length);
-                    var playerName = 'Player ' + (playerData.length + 1);
+                    const playerName = `Player ${playerData.length + 1}`;
                     playerData.push({
                       name: playerName,
                       score: 0,
@@ -92,6 +93,9 @@ const StartScreen = ({navigation}) => {
               keyboardType="number-pad"
               maxLength={3}
               defaultValue="100"
+              onChangeText={(input) => {
+                changeWinPoints(input);
+              }}
             />
           </View>
         </View>
@@ -99,10 +103,10 @@ const StartScreen = ({navigation}) => {
         <View style={styles.optionsContainer} />
       </View>
       <FlatList data={playerData} renderItem={renderPlayerInput} />
-          <TouchableOpacity
-              style={styles.startGameButton}
-              onPress = {() => navigation.navigate('Game Screen')}
-          >
+      <TouchableOpacity
+        style={styles.startGameButton}
+        onPress={() => navigation.navigate('Game Screen')}
+      >
         <Text style={styles.buttonText}>Start Game</Text>
       </TouchableOpacity>
     </View>
@@ -126,7 +130,9 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
   },
-  detailsContainer: {},
+    detailsContainer: {
+        marginBottom: 10,
+  },
   text: {
     fontSize: 14,
     color: 'white',

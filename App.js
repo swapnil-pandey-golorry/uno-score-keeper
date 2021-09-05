@@ -6,16 +6,18 @@
  * @flow strict-local
  */
 
-import React, {useState, createContext} from 'react';
-import StartScreen from './Screens/StartScreen';
-import GameScreen from './Screens/GameScreen';
-export const Context = createContext();
+import React, { useState, createContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import StartScreen from './Screens/StartScreen';
+import GameScreen from './Screens/GameScreen';
+import EndScreen from './Screens/EndScreen';
 
-const Stack = createNativeStackNavigator()
+export const Context = createContext();
+
+const Stack = createNativeStackNavigator();
 const App = () => {
-  const [numberOfPlayers, setNumberOfPlayers] = useState(4);
+  const [numberOfPlayers, setNumberOfPlayers] = useState(2);
   const [playerData, setPlayerData] = useState([
     {
       name: 'Player 1',
@@ -24,44 +26,47 @@ const App = () => {
     {
       name: 'Player 2',
       score: 0,
-    }
+    },
   ]);
   const [winPoints, setWinPoints] = useState(100);
-  const changeNumber = val => {
+  const changeNumber = (val) => {
     setNumberOfPlayers(val);
   };
-  const changePlayerData = data => {
+  const changePlayerData = (data) => {
     setPlayerData(data);
   };
-  const changeWinPOints = val => {
+  const changeWinPOints = (val) => {
     setWinPoints(val);
   };
   return (
     <Context.Provider
       value={{
-        numberOfPlayers: numberOfPlayers,
-        playerData: playerData,
-        winPoints: winPoints,
-        changeNumber: changeNumber,
-        changePlayerData: changePlayerData,
-        changeWinPOints: changePlayerData,
-      }}>
+        numberOfPlayers,
+        playerData,
+        winPoints,
+        changeNumber,
+        changePlayerData,
+        changeWinPoints: setWinPoints,
+      }}
+    >
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerShown: false
+            headerShown: false,
           }}
         >
           <Stack.Screen
-            name= 'Start Screen'
-            component = {StartScreen}
-          >
-          </Stack.Screen>
+            name="Start Screen"
+            component={StartScreen}
+          />
           <Stack.Screen
-            name='Game Screen'
-            component = {GameScreen}
-          >
-          </Stack.Screen>
+            name="Game Screen"
+            component={GameScreen}
+          />
+          <Stack.Screen
+            name="End Screen"
+            component={EndScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Context.Provider>
