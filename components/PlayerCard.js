@@ -99,7 +99,6 @@ styles = StyleSheet.create({
     height: 110,
     borderRadius: 15,
     elevation: 2,
-    paddingTop : 55
   },
   buttonsContainer: {
     flex: 3,

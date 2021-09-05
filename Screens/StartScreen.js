@@ -24,7 +24,9 @@ const StartScreen = ({ navigation }) => {
     return (
       <View style={styles.playerCard}>
         <Text style={styles.playerText}>
-          Player {playerIndex + 1}
+          Player
+          {' '}
+          {playerIndex + 1}
           {' '}
           name:
         </Text>
@@ -45,61 +47,64 @@ const StartScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.screen}>
-      
-        <View style={styles.headingContainer}>
+
+      <View style={styles.headingContainer}>
         <Text style={styles.heading}>Uno Score Keeper</Text>
       </View>
-        <View style={styles.settingsContainer}>
-          <View>
-            <Text style={styles.text}>Number of players</Text>
-            <TextInput
-              style={styles.input}
-              defaultValue="2"
-              keyboardType="number-pad"
-              maxLength={1}
-              onChangeText={(input) => {
-                const num = parseInt(input);
-                if (input.length == 0) {
-                  return;
-                }
-                if (input === '1') {
-                  return;
-                }
-                if (num > numberOfPlayers) {
-                  while (num > playerData.length) {
-                    const playerName = `Player ${playerData.length + 1}`;
-                    playerData.push({
-                      name: playerName,
-                      score: 0,
-                    });
-                  }
-                  changeNumber(num);
-                  changePlayerData(playerData);
-                } else if (num < playerData.length) {
-                  while (playerData.length > num) {
-                    playerData.pop();
-                  }
+      <View style={styles.settingsContainer}>
+        <View>
+          <Text style={styles.text}>Number of players</Text>
+          <TextInput
+            style={styles.input}
+            defaultValue="2"
+            keyboardType="number-pad"
+            maxLength={1}
+            onChangeText={(input) => {
+              const num = parseInt(input);
+              if (input.length == 0) {
+                return;
+              }
+              if (input === '1') {
+                return;
+              }
+              if (num > numberOfPlayers) {
+                while (num > playerData.length) {
+                  const playerName = `Player ${playerData.length + 1}`;
+                  playerData.push({
+                    name: playerName,
+                    score: 0,
+                  });
                 }
                 changeNumber(num);
                 changePlayerData(playerData);
-              }}
-            />
-          </View>
-          <View>
-            <Text style={styles.text}>Points to win</Text>
-            <TextInput
-              style={styles.input}
-              keyboardType="number-pad"
-              maxLength={3}
-              defaultValue="100"
-              onChangeText={(input) => {
-                changeWinPoints(input);
-              }}
-            />
-          </View>
+              } else if (num < playerData.length) {
+                while (playerData.length > num) {
+                  playerData.pop();
+                }
+              }
+              changeNumber(num);
+              changePlayerData(playerData);
+            }}
+          />
         </View>
-          <FlatList
-      style = {styles.list}        data={playerData} renderItem={renderPlayerInput} />
+        <View>
+          <Text style={styles.text}>Points to win</Text>
+          <TextInput
+            style={styles.input}
+            keyboardType="number-pad"
+            maxLength={3}
+            defaultValue="100"
+            onChangeText={(input) => {
+              changeWinPoints(input);
+            }}
+          />
+        </View>
+      </View>
+      <FlatList
+        style={styles.list}
+        data={playerData}
+        renderItem={renderPlayerInput}
+      />
       <TouchableOpacity
         style={styles.startGameButton}
         onPress={() => navigation.navigate('Game Screen')}
@@ -121,15 +126,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '20%',
     paddingTop: 33,
+    zIndex: 1,
   },
   heading: {
     fontFamily: 'inter',
     fontSize: 25,
     color: 'white',
   },
-    detailsContainer: {
-        flex : 1,
-        marginBottom: 10,
+  detailsContainer: {
+    flex: 1,
+    marginBottom: 10,
   },
   text: {
     fontSize: 14,
@@ -178,8 +184,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-      marginHorizontal: 20,
-    marginBottom : 12
-    },
+    marginHorizontal: 20,
+    marginBottom: 12,
+  },
 });
 export default StartScreen;
