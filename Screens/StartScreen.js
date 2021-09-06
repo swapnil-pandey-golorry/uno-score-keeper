@@ -57,7 +57,7 @@ const StartScreen = ({ navigation }) => {
           <Text style={styles.text}>Number of players</Text>
           <TextInput
             style={styles.input}
-            defaultValue= '2'
+            defaultValue="2"
             keyboardType="number-pad"
             maxLength={1}
             onChangeText={(input) => {
@@ -105,8 +105,8 @@ const StartScreen = ({ navigation }) => {
         style={styles.list}
         data={playerData}
         renderItem={renderPlayerInput}
-          />
-          {isAdding && (
+      />
+      {isAdding && (
       <View style={styles.addPlayerCard}>
         <Text style={styles.playerText}>
           Enter new player name:
@@ -122,16 +122,16 @@ const StartScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.addButton}
-                  onPress={() => {
-                      const newData = playerData.slice()
-                      const playerName = 'Player ' + (numberOfPlayers + 1)
-                      changeNumber(numberOfPlayers + 1)
+          onPress={() => {
+            const newData = playerData.slice();
+            const playerName = `Player ${numberOfPlayers + 1}`;
+            changeNumber(numberOfPlayers + 1);
             newData.push({
-                'name':  playerName ,
-                score : 0
-            })
-            changePlayerData(newData)
-        }}
+              name: playerName,
+              score: 0,
+            });
+            changePlayerData(newData);
+          }}
         >
           <Text
             style={styles.addRemoveButtonText}
@@ -142,11 +142,11 @@ const StartScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => {
-            const newData = playerData.slice()
-            changeNumber(numberOfPlayers - 1)
-            newData.pop()
-            changePlayerData(newData)
-}}
+            const newData = playerData.slice();
+            changeNumber(numberOfPlayers - 1);
+            newData.pop();
+            changePlayerData(newData);
+          }}
         >
           <Text
             style={styles.addRemoveButtonText}
