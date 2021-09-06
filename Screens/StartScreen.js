@@ -186,6 +186,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     marginBottom: 12,
-  },
+    },
+    list: {
+      marginBottom : 30
+  }
 });
 export default StartScreen;

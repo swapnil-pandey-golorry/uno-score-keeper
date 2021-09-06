@@ -97,7 +97,7 @@ styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 12,
     height: 110,
-    borderRadius: 15,
+    borderRadius: 5,
     elevation: 2,
   },
   buttonsContainer: {

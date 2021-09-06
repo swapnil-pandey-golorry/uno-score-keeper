@@ -72,11 +72,19 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     alignItems: 'center',
-    backgroundColor: '#19193C',
+      backgroundColor: '#19193C',
+      marginHorizontal: 20,
+      height: 50,
+      alignItems: 'center',
+      borderRadius: 10,
+      elevation: 3,
+      marginBottom : 10
+    
   },
   buttonText: {
-    fontSize: 18,
-    color: 'white',
+    fontSize: 24,
+      color: 'white',
+    paddingTop : 5
   },
 });
 
