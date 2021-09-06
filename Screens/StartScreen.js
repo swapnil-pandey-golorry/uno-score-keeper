@@ -1,5 +1,5 @@
 import { ContentWriter } from 'istanbul-lib-report';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -17,7 +17,8 @@ const StartScreen = ({ navigation }) => {
   const { changeNumber } = state;
   const { numberOfPlayers } = state;
   const { changeWinPoints } = state;
-
+  const [isAdding, setIsAdding] = useState(false);
+  const [newPlayer, setNewPlayer] = useState('');
   const renderPlayerInput = (itemData) => {
     const playerIndex = itemData.index;
     const playerName = itemData.item.name;
@@ -56,7 +57,7 @@ const StartScreen = ({ navigation }) => {
           <Text style={styles.text}>Number of players</Text>
           <TextInput
             style={styles.input}
-            defaultValue="2"
+            defaultValue= '2'
             keyboardType="number-pad"
             maxLength={1}
             onChangeText={(input) => {
@@ -104,7 +105,56 @@ const StartScreen = ({ navigation }) => {
         style={styles.list}
         data={playerData}
         renderItem={renderPlayerInput}
-      />
+          />
+          {isAdding && (
+      <View style={styles.addPlayerCard}>
+        <Text style={styles.playerText}>
+          Enter new player name:
+        </Text>
+        <TextInput
+          style={styles.addplayerInput}
+          onChangeText={(input) => {
+            setNewPlayer(input);
+          }}
+        />
+      </View>
+      )}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.addButton}
+                  onPress={() => {
+                      const newData = playerData.slice()
+                      const playerName = 'Player ' + (numberOfPlayers + 1)
+                      changeNumber(numberOfPlayers + 1)
+            newData.push({
+                'name':  playerName ,
+                score : 0
+            })
+            changePlayerData(newData)
+        }}
+        >
+          <Text
+            style={styles.addRemoveButtonText}
+          >
+            +
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.removeButton}
+          onPress={() => {
+            const newData = playerData.slice()
+            changeNumber(numberOfPlayers - 1)
+            newData.pop()
+            changePlayerData(newData)
+}}
+        >
+          <Text
+            style={styles.addRemoveButtonText}
+          >
+            -
+          </Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity
         style={styles.startGameButton}
         onPress={() => navigation.navigate('Game Screen')}
@@ -135,7 +185,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
-    marginBottom: 10,
+    marginBottom: 0,
   },
   text: {
     fontSize: 14,
@@ -186,9 +236,43 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     marginBottom: 12,
-    },
-    list: {
-      marginBottom : 30
-  }
+  },
+  list: {
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    marginHorizontal: 30,
+  },
+  addButton: {
+    backgroundColor: 'orange',
+    borderRadius: 15,
+    height: 30,
+    width: 30,
+    alignItems: 'center',
+  },
+  removeButton: {
+    backgroundColor: 'orange',
+    borderRadius: 15,
+    height: 30,
+    width: 30,
+    alignItems: 'center',
+  },
+  addRemoveButtonText: {
+    fontSize: 20,
+  },
+  addPlayerCard: {
+    paddingTop: 10,
+  },
+  addplayerInput: {
+    borderBottomColor: 'white',
+    borderBottomWidth: 0.4,
+    marginBottom: 5,
+    width: '80%',
+    marginHorizontal: 20,
+  },
+
 });
 export default StartScreen;
